@@ -70,9 +70,11 @@ let newProduct3 = {
 
 const prodManager = new productManager();
 
+console.log(prodManager.getProducts());
+
 prodManager.addProduct(newProduct1);
 prodManager.addProduct(newProduct2);
 prodManager.addProduct(newProduct3);
 
 console.log(prodManager.getProducts());
-console.log(prodManager.getProductsById(2))
+console.log(prodManager.getProductsById(2));
