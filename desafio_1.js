@@ -14,10 +14,12 @@ class productManager
             //     throw new Error ("no se puede crear un producto vacio");
             // }
             
+            
+            
             //Validacion de code.
             if(this.products.find(p => p.code === newProduct.code))
             {
-                throw new Error ("No se puede crear un producto con Id repetido")
+                throw new Error ("No se puede crear un producto con code repetido")
             }
             
             //Retornar el producto y asignarle una autoID con spread operator
@@ -39,12 +41,14 @@ class productManager
     getProductsById(id)
     {
 
-        if(this.products.find(p => p.idProduct === id))
+        const product = this.products.find(p => p.id === id);
+
+        if(!product)
             {
-                return this.idProduct
+                throw new Error ("No se encuentra la id ingresada")
             }
-            throw new Error ("No se encuentra la id ingresada")
-    }
+            return product;
+        }
 }
 
 
@@ -59,25 +63,32 @@ let newProduct1 = {
     code: 1,
     stock: 100,
 };
-let newProducto2 = {
-    title: 'Manzana',
+let newProduct2 = {
+    title: 'Naranja',
     description: 'Fruta',
-    price: 50,
-    thumbnail: 'img1',
-    code: 1,
-    stock: 100,
+    price: 100,
+    thumbnail: 'img2',
+    code: 2,
+    stock: 1000,
+};
+let newProduct3 = {
+    title: 'Banana',
+    description: 'Fruta',
+    price: 3000,
+    thumbnail: 'img3',
+    code: 3,
+    stock: 1000,
 };
 
 
 
-
-const productManager = new productManager();
-
-
-productManager.addProduct(newProduct1);
-productManager.addProduct(newProduct2);
+const prodManager = new productManager();
 
 
-console.log(productManager.getProducts());
+prodManager.addProduct(newProduct1);
+prodManager.addProduct(newProduct2);
+prodManager.addProduct(newProduct3);
 
-productManager.getProductsById(2)
+
+console.log(prodManager.getProducts());
+console.log(prodManager.getProductsById(2))
