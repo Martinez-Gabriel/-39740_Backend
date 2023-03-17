@@ -127,13 +127,13 @@ const main = async () =>
   console.log(await pm.getProducts());
 
   //getProductoByID Funcionando.
-  // console.log(await pm.getProductsById(1));
+  console.log(await pm.getProductsById(1));
 
-//updateProduct Funcionando.
-console.log(await pm.updateProduct(2, {title: 'peras',description: 'Fruta',price: 3000,thumbnail: 'img3',stock: 1000}));
+  //updateProduct Funcionando.
+  console.log(await pm.updateProduct(2, {title: 'peras',description: 'Fruta',price: 3000,thumbnail: 'img3',stock: 1000}));
 
   //deleteProducto Funcionando.
-  // console.log(await pm.deleteProduct(2));
+  console.log(await pm.deleteProduct(2));
   
 };
 
