@@ -10,14 +10,15 @@ class ProductManager {
   }
 
   async loadData() {
-    // Load JSON information
     this.#products = await this.getProducts();
   }
 
   //Traemos todos los productos.
   async getProducts() {
     try {
-      const contenido = await fs.promises.readFile(this.path, {encoding: "utf-8",});
+      const contenido = await fs.promises.readFile(this.path, {
+        encoding: "utf-8",
+      });
       return JSON.parse(contenido);
     } catch (error) {
       console.log(`El archivo ${this.path} no existe, creando...`);
@@ -37,50 +38,53 @@ class ProductManager {
       throw new Error("No se puede crear un producto con code repetido");
     }
 
-    //Retornar el producto y asignarle una autoID con spread operator
+    //Retornar el producto y asignarle una autoID con spread operator.
     this.#products.push({ ...newProduct, id: this.idProduct++ });
 
     await fs.promises.writeFile(this.path, JSON.stringify(this.#products));
   }
 
   async getProductsById(id) {
-      const productById = await fs.promises.readFile(this.path, {encoding: "utf-8",});
-      const DBParse = JSON.parse(productById);
-      const contenido = DBParse.find((p) => p.id === id);
-      if (!contenido)
-        throw new Error ("ERROR, no se encuentra el producto!");
-      return contenido;
-    
+    const productById = await fs.promises.readFile(this.path, {
+      encoding: "utf-8",
+    });
+    const DBParse = JSON.parse(productById);
+    const contenido = DBParse.find((p) => p.id === id);
+    if (!contenido) throw new Error("ERROR, no se encuentra el producto!");
+    return contenido;
   }
 
-  async updateProduct(id , newProduct) {
-    try{
-    let readProducts = await fs.promises.readFile(this.path, {encoding: "utf-8"})
-    const productsParse = JSON.parse(readProducts);
-    const productId = productsParse.findIndex((product) => product.id === id);
-    productsParse.splice(productId, 1, { id, ...newProduct });
+  //Actualizar producto
+  async updateProduct(id, newProduct) {
+    try {
+      let readProducts = await fs.promises.readFile(this.path, {
+        encoding: "utf-8",
+      });
+      const productsParse = JSON.parse(readProducts);
+      const productId = productsParse.findIndex((product) => product.id === id);
+      productsParse.splice(productId, 1, { id, ...newProduct });
 
-    await fs.promises.writeFile(this.path, JSON.stringify(productsParse));
-    return `producto modificado correctamente!`
-    }
-    catch (e) {
+      await fs.promises.writeFile(this.path, JSON.stringify(productsParse));
+      return `producto modificado correctamente!`;
+    } catch (e) {
       throw new Error(`ERROR, no se puede actualizar el producto!`);
     }
   }
 
+  //Borrar Producto
   async deleteProduct(id) {
-    try{
-        let readProducts = await fs.promises.readFile(this.path, {encoding: "utf-8"})
-        const productParse = JSON.parse(readProducts);
-        const deleteProduct = productParse.filter ((p) => p.id !== id);
-        await fs.promises.writeFile(this.path, JSON.stringify (deleteProduct));
+    try {
+      let readProducts = await fs.promises.readFile(this.path, {
+        encoding: "utf-8",
+      });
+      const productParse = JSON.parse(readProducts);
+      const deleteProduct = productParse.filter((p) => p.id !== id);
+      await fs.promises.writeFile(this.path, JSON.stringify(deleteProduct));
 
-        return `producto eliminado`
-      
-      } catch (e){
-        throw new Error(e)
-      }
-      
+      return `producto eliminado`;
+    } catch (e) {
+      throw new Error(e);
+    }
   }
 }
 
@@ -109,9 +113,7 @@ let newProduct3 = {
   stock: 1000,
 };
 
-const main = async () => 
-{
-
+const main = async () => {
   const pm = new ProductManager();
 
   await pm.loadData();
@@ -129,25 +131,19 @@ const main = async () =>
   //getProductoByID Funcionando.
   console.log(await pm.getProductsById(1));
 
-  //updateProduct Funcionando.
-  console.log(await pm.updateProduct(2, {title: 'peras',description: 'Fruta',price: 3000,thumbnail: 'img3',stock: 1000}));
+  //updateProduct funcionando.
+  console.log(
+    await pm.updateProduct(2, {
+      title: "peras",
+      description: "Fruta",
+      price: 3000,
+      thumbnail: "img3",
+      stock: 1000,
+    })
+  );
 
-  //deleteProducto Funcionando.
+  //deleteProducto funcionando.
   console.log(await pm.deleteProduct(2));
-  
 };
 
 main();
-
-
-
-
-
-
-
-
-
-
-
-
-
