@@ -138,7 +138,7 @@ const main = async () => {
       description: "Fruta",
       price: 3000,
       thumbnail: "img3",
-      stock: 2000,
+      stock: 1000,
     })
   );
 
