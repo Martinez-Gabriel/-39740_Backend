@@ -11,13 +11,13 @@ app.use(express.urlencoded({ extended: true }));
 //GET PRODUCT POR LIMIT.
 app.get("/products", async (req, res) => {
   const limit = +req.query.limit;
-  try{
+  try {
     const products = await productManager.getProducts();
-    if (limit){
-      const productLimit = products.slice(0,limit);
+    if (limit) {
+      const productLimit = products.slice(0, limit);
       console.log(productLimit);
       res.send(productLimit);
-    }else{
+    } else {
       console.log(products);
       res.send(products);
     }
@@ -26,25 +26,21 @@ app.get("/products", async (req, res) => {
     res.send(error);
   }
 });
-  
-
 
 //GET PRODUCT POR ID.
 app.get("/products/:pid", async (req, res) => {
   const pid = +req.params.pid;
-  try{
-      const product = await productManager.getProductsById(pid);
-      console.log(product);
-      res.send(product);
+  try {
+    const product = await productManager.getProductsById(pid);
+    console.log(product);
+    res.send(product);
   } catch (error) {
-        console.log(error);
-        res.send(error);
-  }  
+    console.log(error);
+    res.send(error);
+  }
 });
 
 //CONFIGURACION DE PUERTO
 app.listen(8080, () => {
   console.log("Servidor escuchando el puerto 8080");
 });
-
-
