@@ -11,33 +11,40 @@ app.use(express.urlencoded({ extended: true }));
 //GET PRODUCT POR LIMIT.
 app.get("/products", async (req, res) => {
   const limit = +req.query.limit;
-  let productLimit = [];
-  for (var i = 0; i < limit; i++){
-    productLimit.push(products[i]);
+  try{
+    const products = await productManager.getProducts();
+    if (limit){
+      const productLimit = products.slice(0,limit);
+      console.log(productLimit);
+      res.send(productLimit);
+    }else{
+      console.log(products);
+      res.send(products);
+    }
+  } catch (error) {
+    console.log(error);
+    res.send(error);
   }
-  res.send(await productManager.getProducts());
 });
+  
+
 
 //GET PRODUCT POR ID.
-app.get("/products/:pid", (req, res) => {
+app.get("/products/:pid", async (req, res) => {
   const pid = +req.params.pid;
-  const product = products.find((product) => product.id === pid);
-  if (!product) {
-    res.send({ error: "Product not found." });
-  }
-
-  res.send(product);
+  try{
+      const product = await productManager.getProductsById(pid);
+      console.log(product);
+      res.send(product);
+  } catch (error) {
+        console.log(error);
+        res.send(error);
+  }  
 });
 
 //CONFIGURACION DE PUERTO
 app.listen(8080, () => {
   console.log("Servidor escuchando el puerto 8080");
 });
-
-// app.get("/addProduct", async (req, res) => {
-//   res.send(await productManager.addProduct(singleProduct));
-// });
-
-
 
 

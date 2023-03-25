@@ -1,1 +1,13 @@
-[{"name":"naranja","id":1}]
+[
+  { "name": "Harina", "id": 1 },
+  { "name": "Sal", "id": 2 },
+  { "name": "Azucar", "id": 3 },
+  { "name": "Cafe", "id": 4 },
+  { "name": "Te", "id": 5 },
+  { "name": "Matacocido", "id": 6 },
+  { "name": "Manteca", "id": 7 },
+  { "name": "Leche", "id": 8 },
+  { "name": "Dulce de Leche", "id": 9 },
+  { "name": "Huevo", "id": 10 }
+]
+
